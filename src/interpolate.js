@@ -6,11 +6,16 @@ const interpolate = (value, session = {}, options = {}) => {
 
         if(!options.isEmpty())
         {
+            /* if session object is empty, i.e user has not provided any details yet.
+            in this case look for variables in the given string and replace them with empty string */
             if(session.isEmpty())
             {
+                //First extarct all occurences of a declared variables and stores in an array
                 const stringExtractor = extract(['{','}']);
-                const stingVal = stringExtractor(value)
-                stingVal.forEach(el =>
+                const arrayExtracted = stringExtractor(value)
+
+                //loop through each variable and replace with empty string
+                arrayExtracted.forEach(el =>
                     value=value.replace(options.leftDelimiter+el+options.rightDelimiter,""))
 
             }
